@@ -3,6 +3,16 @@ import java.util.Scanner;
 
 public class RectangleTester {
 
+    private static double calcArea(double height, double width){
+        return height * width;
+    }
+    /*
+    calcPerim Calculates perimeter given height and width
+    @
+     */
+    private static double calcPerim(double height, double width){
+        return 2 * (height + width);
+    }
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Please enter desired height");
@@ -13,10 +23,10 @@ public class RectangleTester {
         scan.nextLine();
         Rectangle rect = new Rectangle(0, 0, width, height);
         System.out.println(rect);
-        double area = rect.getHeight() * rect.getWidth();
-        double perim = 2 * (rect.getHeight() + rect.getWidth());
-        double areaHand = width * height;
-        double perimHand = 2 * (width + height);
+        double area = calcArea(rect.getHeight(), rect.getWidth());
+        double perim = calcPerim(rect.getHeight(), rect.getWidth());
+        double areaHand = calcArea(width, height);
+        double perimHand = calcPerim(width, height);
         System.out.println("Rect area is " + area + ", calculated by hand is " + areaHand);
         System.out.println("Rect perim is " + perim + ", calculated by hand is " + perimHand);
         System.out.println("Would you like to translate your box? [y for yes, n for no]");
