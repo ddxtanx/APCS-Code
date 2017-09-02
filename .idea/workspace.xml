@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="37c77042-d8f8-4e90-b2f2-6805921cbf92" name="Default" comment="Add changes, add DieSim, ThinkJava, and Time class.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/DieSim.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ThinkJava.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Time.java" />
+    <list default="true" id="37c77042-d8f8-4e90-b2f2-6805921cbf92" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RectangleTester.java" afterPath="$PROJECT_DIR$/src/RectangleTester.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -413,7 +409,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504116845021</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add changes, add DieSim, ThinkJava, and Time class.">
+      <created>1504288225841</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1504288225841</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
