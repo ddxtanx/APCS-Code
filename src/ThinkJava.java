@@ -10,20 +10,20 @@ public class ThinkJava {
     }
     private static String runCalc(Time startTime, Time easyPace, int easyMiles, Time tempoPace, int tempoMiles){
         for(int x = 0; x<easyMiles; x++){
-            startTime.addTime(easyPace);
+            startTime = startTime.addTime(easyPace);
         }
         for(int x = 0; x<tempoMiles; x++){
-            startTime.addTime(tempoPace);
+            startTime = startTime.addTime(tempoPace);
         }
         return startTime.getTime();
     }
     public static void main(String[] args) {
         System.out.println(sphereVol(5));
         System.out.println(priceCalc(60, 24.95));
-        Time startTime = new Time(6, 52, 0);
-        Time easyPace = new Time(0, 8, 15);
+        Time startTime = Time.parseTimeString("6:52:0");
+        Time easyPace = Time.parseTimeString("8:15");
         int easyMiles = 2;
-        Time tempoPace = new Time(0, 7, 12);
+        Time tempoPace = Time.parseTimeString("7:12");
         int tempoMiles = 3;
         System.out.println(runCalc(startTime, easyPace, easyMiles, tempoPace, tempoMiles));
     }
