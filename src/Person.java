@@ -13,7 +13,10 @@ public class Person {
         this.gender = gender;
         this.address = address;
     }
-
+    public Person(String name, String address){
+        this.name = name;
+        this.address = address;
+    }
     public Person() {
         this.name = "";
         this.height = "";
@@ -35,6 +38,9 @@ public class Person {
 
     public String getGender() {
         return gender;
+    }
+    public String getAddress(){
+        return address;
     }
 
     public void setHeight(String height) {
