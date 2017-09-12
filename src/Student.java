@@ -1,19 +1,16 @@
-public class Student extends Person{
+public class Student{
 
     private int year;
     private int idNum;
-
-    public Student(String name, String height, int weight, String gender, int year, int idNum, String address) {
-        super(name, height, weight, gender, address);
-        this.year = year;
-        this.idNum = idNum;
-    }
+    private String name;
+    private String address;
 
 
     public Student(String name, String address, int year, int idNum) {
-        super(name, address);
         this.year = year;
         this.idNum = idNum;
+        this.name = name;
+        this.address = address;
     }
 
     public int getYear() {
@@ -22,6 +19,30 @@ public class Student extends Person{
 
     public int getIdNum() {
         return idNum;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setIdNum(int idNum) {
+        this.idNum = idNum;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void incrementYear(){
@@ -38,10 +59,17 @@ public class Student extends Person{
         } else if(year>8 && year<=12){
             return "High School";
         } else if(year>12 && year <=16){
-            return "Undergraduate Year of College";
+            return "Undergraduate Year Of College";
         } else{
             return "Either out of school, or in Graduate School";
         }
+    }
+
+    public void print(){
+        System.out.println("My name is " + getName());
+        System.out.println("I'm a year " + getYear() + " student.");
+        System.out.println("My ID is " + getIdNum());
+        System.out.println("My address is " + getAddress());
     }
     public static void main(String[] args) {
 

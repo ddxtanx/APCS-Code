@@ -3,22 +3,24 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentTest {
-    static Student stu = new Student("Garrett", "123 park", 9, 200157);
+    private static Student stu = new Student("Garrett", "123 park", 9, 200157);
     @Test
     void getYear() {
+        stu = new Student("Garrett", "123 park", 9, 200157);
         assertEquals(stu.getYear(), 9);
     }
+    @Test
     void incrementYear() {
         stu.incrementYear();
         assertEquals(stu.getYear(), 10);
         stu.incrementYear();
         assertEquals(stu.getYear(), 11);
     }
-
+    @Test
     void getIdNum(){
         assertEquals(stu.getIdNum(), 200157);
     }
-
+    @Test
     void levelOfSchool(){
         assertEquals(stu.levelOfSchool(), "High School");
         Student preK = new Student("Baby", "Baby street", 0, 123213);
@@ -32,7 +34,15 @@ class StudentTest {
         Student out = new Student("Grad", "Grad School Way", 19, 11133111);
         assertEquals(out.levelOfSchool(), "Either out of school, or in Graduate School");
     }
-    public static void main(String[] args) {
-        System.out.println(stu);
+    @Test
+    void testsInClass(){
+        Student baba = new Student("Baba", "Baba dook", 11, 123111);
+        baba.print();
+        System.out.println("Changing baba");
+        baba.setIdNum(100);
+        baba.setName("Bebe");
+        baba.print();
+        assertEquals(baba.getName(), "Bebe");
+        assertEquals(baba.getIdNum(), 100);
     }
 }
