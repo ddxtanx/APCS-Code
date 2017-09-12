@@ -45,4 +45,16 @@ class StudentTest {
         assertEquals(baba.getName(), "Bebe");
         assertEquals(baba.getIdNum(), 100);
     }
+    @Test
+    void nameCaps(){
+        Student nameTest = new Student("Default Name", "Default street", 11, 1122112);
+        assertEquals(nameTest.nameCaps(), "DEFAULT NAME");
+    }
+    @Test
+    void randomId(){
+        Student randStu = new Student("Name", "Address", 11, 0);
+        int randId = randStu.randomId(6);
+        assertEquals(randStu.getIdNum(), randId);
+        assertTrue(randId>=100000 && randId<=999999, "RandomId does not generate an id that is 6 digits long");
+    }
 }

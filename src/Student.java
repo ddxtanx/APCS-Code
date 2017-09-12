@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Student{
 
     private int year;
@@ -70,6 +72,19 @@ public class Student{
         System.out.println("I'm a year " + getYear() + " student.");
         System.out.println("My ID is " + getIdNum());
         System.out.println("My address is " + getAddress());
+    }
+
+    public String nameCaps(){
+        return name.toUpperCase();
+    }
+
+    public int randomId(int digs){
+        Random rand = new Random();
+        int randomId = rand.nextInt((int)Math.pow(10,digs-1));
+        int radixIncrease = (rand.nextInt(9)+1)*(int)Math.pow(10,digs-1);
+        randomId += radixIncrease;
+        setIdNum(randomId);
+        return randomId;
     }
     public static void main(String[] args) {
 
