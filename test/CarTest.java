@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+//Using JUnit5 for testing
 class CarTest {
     @Test
     void getMake() {
@@ -45,6 +45,7 @@ class CarTest {
     void drive() {
         Random rand = new Random();
         Car car = new Car("Ford", 100, 200, 150);
+        //Mile increment is some natural number < 500
         int randomMiles = rand.nextInt(500);
         car.drive(randomMiles);
         assertEquals(car.getMileage(), 100+randomMiles, "drive() incorrectly mutates the car object.");
@@ -53,8 +54,10 @@ class CarTest {
     @Test
     void addFuel() {
         Car car = new Car("Ford", 100, 200, 150);
+        //Check that is works for fuel values that don't overflow the tank
         car.addFuel(30);
         assertEquals(car.getGas(), 180, "addFuel() incorrectly mutates the car object without an overflow");
+        //Check that it works for fuel values that do overflow the tank
         car.addFuel(299);
         assertEquals(car.getGas(), 200, "addFuel() incorrectly mutates the car object with an overflow");
     }
