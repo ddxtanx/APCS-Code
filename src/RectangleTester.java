@@ -25,8 +25,8 @@ public class RectangleTester {
         System.out.println(rect);
         double area = calcArea(rect.getHeight(), rect.getWidth());
         double perim = calcPerim(rect.getHeight(), rect.getWidth());
-        double areaHand = calcArea(width, height);
-        double perimHand = calcPerim(width, height);
+        double areaHand = calcArea(height, width);
+        double perimHand = calcPerim(height, width);
         System.out.println("Rect area is " + area + ", calculated by hand is " + areaHand);
         System.out.println("Rect perim is " + perim + ", calculated by hand is " + perimHand);
         System.out.println("Would you like to translate your box? [y for yes, n for no]");

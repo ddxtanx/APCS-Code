@@ -1,5 +1,3 @@
-import java.util.regex.Pattern;
-
 public class StringExamples {
 
     public static void main(String[] args) {
