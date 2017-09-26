@@ -1,3 +1,6 @@
+package chap12test;
+
+import chap12.Car;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Random;

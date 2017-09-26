@@ -1,3 +1,5 @@
+package chap12;
+
 import java.awt.*;
 import java.util.Scanner;
 

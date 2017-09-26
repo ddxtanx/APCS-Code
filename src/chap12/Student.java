@@ -1,3 +1,5 @@
+package chap12;
+
 import java.util.Random;
 
 public class Student{

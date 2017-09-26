@@ -1,10 +1,12 @@
+package chap12;
+
 public class Car {
     //make(String), mileage(int), tankSize(double), gas(double)
     private String make;
     private int mileage;
     private double tankSize;
     private double gas;
-    //Car Constructor, all instance variables are fields
+    //chap12.Car Constructor, all instance variables are fields
     public Car(String make, int mileage, double tankSize, double gas) {
         this.make = make;
         this.mileage = mileage;

@@ -1,3 +1,5 @@
+package chap34;
+
 public class RoachSimulation {
 
     public static void main(String[] args){

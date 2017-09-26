@@ -1,3 +1,5 @@
+package chap34;
+
 public class RoachPopulation {
     private int roaches;
 

@@ -1,3 +1,5 @@
+package chap12;
+
 import java.lang.Math;
 public class ThinkJava {
     private static double sphereVol(double radius){
@@ -23,7 +25,7 @@ public class ThinkJava {
         Time startTime = Time.parseTimeString("6:52:0");
         Time easyPace = Time.parseTimeString("8:15");
         int easyMiles = 2;
-        Time tempoPace = Time.parseTimeString("7:12");
+        Time tempoPace = Time.parseTimeString("7:chap12");
         int tempoMiles = 3;
         System.out.println(runCalc(startTime, easyPace, easyMiles, tempoPace, tempoMiles));
     }

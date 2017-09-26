@@ -1,3 +1,5 @@
+package chap12;
+
 public class Time {
     public int getHour() {
         return hour;
@@ -38,7 +40,7 @@ public class Time {
         int newHour = hour;
         int newMinute = minutes;
         int newSecond = seconds;
-        //Fields for the returned Time object
+        //Fields for the returned chap12.Time object
         newMinute += (newSecond + addSeconds) / 60;
         newSecond = (newSecond + addSeconds) % 60;
 
@@ -60,7 +62,7 @@ public class Time {
         int newHour = hour;
         int newMinute = minutes;
         int newSecond = seconds;
-        //Fields for the returned Time object
+        //Fields for the returned chap12.Time object
 
         int secDiff = newSecond - subSeconds;
         newMinute += (secDiff - ((secDiff<0)?60:0)) / 60;
@@ -80,7 +82,7 @@ public class Time {
 
     /**
      * @param timeString - String in the form of 'H:M:S' or 'M:S'
-     * @return returnTime - Time object built from timeString
+     * @return returnTime - chap12.Time object built from timeString
      */
     public static Time parseTimeString(String timeString){
         String[] splitTime = timeString.split(":");
@@ -95,7 +97,7 @@ public class Time {
             int seconds = Integer.parseInt(splitTime[1]);
             returnTime = new Time(0, minutes, seconds);
         } else{
-            throw new IllegalArgumentException("Time String must be in the format 'M:S' or 'H:M:S' ");
+            throw new IllegalArgumentException("chap12.Time String must be in the format 'M:S' or 'H:M:S' ");
         }
         return returnTime;
     }

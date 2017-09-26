@@ -1,3 +1,6 @@
+package chap12test;
+
+import chap12.Time;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,10 +47,10 @@ class TimeTest {
     void parseTimeString() {
         String timeStr = "8:15";
         Time parsedTime = new Time(0, 8, 15);
-        assertTrue(parsedTime.equals(Time.parseTimeString(timeStr)), "Minute Time Strings are incorrectly parsed.");
+        assertTrue(parsedTime.equals(Time.parseTimeString(timeStr)), "Minute chap12.Time Strings are incorrectly parsed.");
         timeStr = "7:13:15";
         parsedTime = new Time(7, 13, 15);
-        assertTrue(parsedTime.equals(Time.parseTimeString(timeStr)), "Hour Time Strings are incorrectly parsed.");
+        assertTrue(parsedTime.equals(Time.parseTimeString(timeStr)), "Hour chap12.Time Strings are incorrectly parsed.");
         timeStr = "0:600";
         parsedTime = new Time(0, 10, 0);
         assertTrue(parsedTime.equals(Time.parseTimeString(timeStr)), "Overflowing timeStrings are incorrectly parsed");
