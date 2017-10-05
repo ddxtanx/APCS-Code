@@ -46,8 +46,8 @@ public class Student {
     }
 
     public double droppedAverage(){
-        Collections.sort(quizScores);
-        ArrayList<Integer> quizCopy = (ArrayList<Integer>)quizScores.clone();
+        ArrayList<Integer> quizCopy = new ArrayList<Integer>(quizScores);
+        Collections.sort(quizCopy);
         quizCopy.remove(0);
         double sum = 0;
         for(int score: quizCopy){
