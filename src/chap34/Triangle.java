@@ -19,11 +19,11 @@ public class Triangle {
     }
 
     public double getSide2Length(){
-        return coordinates.get(1).calcDistance(coordinates.get(2));
+        return coordinates.get(2).calcDistance(coordinates.get(0));
     }
 
     public double getSide3Length(){
-        return coordinates.get(2).calcDistance(coordinates.get(0));
+        return coordinates.get(1).calcDistance(coordinates.get(2));
     }
 
     public double getPerimeter(){
@@ -35,27 +35,27 @@ public class Triangle {
         return Math.sqrt(semiPerimeter*(semiPerimeter-getSide1Length())*(semiPerimeter-getSide2Length())*(semiPerimeter-getSide3Length()));
     }
 
-    public double getAngle1(){
+    public double getAngle3(){
         double s1 = getSide1Length();
         double s2 = getSide2Length();
         double s3 = getSide3Length();
-        double cosine = (s2*s2+s3*s3-s1*s1)/(2*s2*s3);
-        return Math.acos(cosine);
+        double cosine = (s3*s3+s1*s1-s2*s2)/(2*s3*s1);
+        return Math.toDegrees(Math.acos(cosine));
     }
 
     public double getAngle2(){
         double s1 = getSide1Length();
         double s2 = getSide2Length();
         double s3 = getSide3Length();
-        double cosine = (s3*s3+s1*s1-s2*s2)/(2*s1*s3);
-        return Math.acos(cosine);
+        double cosine = (s2*s2+s3*s3-s1*s1)/(2*s2*s3);
+        return Math.toDegrees(Math.acos(cosine));
     }
 
-    public double getAngle3(){
+    public double getAngle1(){
         double s1 = getSide1Length();
         double s2 = getSide2Length();
         double s3 = getSide3Length();
-        double cosine = (s2*s2+s1*s1-s3*s3)/(2*s2*s1);
-        return Math.acos(cosine);
+        double cosine = (s1*s1+s2*s2-s3*s3)/(2*s1*s2);
+        return Math.toDegrees(Math.acos(cosine));
     }
 }
