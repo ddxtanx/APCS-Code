@@ -58,4 +58,29 @@ public class Triangle {
         double cosine = (s1*s1+s2*s2-s3*s3)/(2*s1*s2);
         return Math.toDegrees(Math.acos(cosine));
     }
+
+    public Point getCircumcenter(){
+        double x0 = coordinates.get(0).getX();
+        double y0 = coordinates.get(0).getY();
+        double y1 = coordinates.get(1).getY();
+        double x1 = coordinates.get(1).getX();
+        double x2 = coordinates.get(2).getX();
+        double y2 = coordinates.get(2).getY();
+        double a = (x1-x0)/(y1-y0);
+        double b = 1;
+        double c = (x1*x1-x0*x0)/(2*(y1-y0))+(y0+y1)/2;
+        double d = (x2-x1)/(y2-y1);
+        double e = 1;
+        double f = (x2*x2-x1*x1)/(2*(y2-y1))+(y1+y2)/2;
+
+        double xCoord = (f*b-e*c)/(b*d-e*a);
+        double yCoord = (c-a*xCoord)/b;
+        return new Point(xCoord, yCoord);
+    }
+
+    public Point getCentroid(){
+        double xAvg = (coordinates.get(0).getX()+coordinates.get(1).getX()+coordinates.get(2).getX())/3;
+        double yAvg = (coordinates.get(0).getY()+coordinates.get(1).getY()+coordinates.get(2).getY())/3;
+        return new Point(xAvg, yAvg);
+    }
 }
