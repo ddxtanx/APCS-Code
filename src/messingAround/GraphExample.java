@@ -8,14 +8,21 @@ public class GraphExample {
         Vertex v1 = new Vertex("v1");
         Vertex v2 = new Vertex("v2");
         Vertex v3 = new Vertex("v3");
-        Edge e1 = new Edge(v1, v2, 1);
-        Edge e2 = new Edge(v2, v3, 2);
-        Edge e3 = new Edge(v1, v3, 4);
+        v1.addEdge(v2, 1);
+        v2.addEdge(v3, 2);
+        v1.addEdge(v3, 4);
         ArrayList<Vertex> vertices = new ArrayList<>();
         vertices.add(v1);
         vertices.add(v2);
         vertices.add(v3);
         Graph g = new Graph(vertices);
         g.links();
+        System.out.println("___---___---___");
+        Vertex v4 = new Vertex("v4");
+        v4.addEdge(v1, 50);
+        g.addVertex(v4);
+        g.links();
+        Vertex v5 = new Vertex("v5");
+        System.out.println(g.distance(v1, v2));
     }
 }
