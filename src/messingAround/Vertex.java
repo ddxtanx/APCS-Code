@@ -16,6 +16,14 @@ public class Vertex {
     public void addEdge(Edge edge){
         edges.add(edge);
     }
+    
+    public void removeEdge(Edge edge){
+        edges.remove(edge);
+    }
+    
+    public void removeEdge(Vertex v){
+        edges.remove(v);
+    }
 
     public ArrayList<Edge> getEdges(){
         return edges;
@@ -37,6 +45,14 @@ public class Vertex {
     @Override
     public boolean equals(Object e){
         if(!(e instanceof Vertex)){
+            if(e instanceof DijkstraCard){
+                DijkstraCard d = (DijkstraCard) e;
+                return d.getTo().getName().equals(name) && d.getTo().getEdges().equals(edges);
+            } else if(e instanceof Edge){
+                Edge ed = (Edge) e;
+                Vertex to = ed.getTo();
+                return equals(to);
+            }
             return false;
         }
         Vertex v = (Vertex) e;
@@ -50,5 +66,10 @@ public class Vertex {
             neighbors.add(e.getTo());
         }
         return neighbors;
+    }
+    
+    @Override
+    public String toString(){
+        return name;
     }
 }

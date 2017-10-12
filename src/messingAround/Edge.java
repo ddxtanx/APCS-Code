@@ -25,4 +25,9 @@ public class Edge {
     public Edge clone(){
         return new Edge(to, weight);
     }
+    
+    @Override
+    public String toString(){
+        return "To " + to + " with distance: " + weight;
+    }
 }

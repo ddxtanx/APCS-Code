@@ -1,7 +1,7 @@
 package messingAround;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
 public class Graph {
     private ArrayList<Vertex> vertices = new ArrayList<>();
 
@@ -45,12 +45,30 @@ public class Graph {
             }
             cards.add(card);
         }
-        while((!currentVertex.equals(v2)) && minValue!=Double.POSITIVE_INFINITY){
-            ArrayList<Vertex> neighbors = currentVertex.getNeighbors();
-            for(Vertex v: neighbors){
-                int index = vertices.indexOf(v);
+        while((unvisited.indexOf(v2)!=-1) && minValue!=Double.POSITIVE_INFINITY){
+            ArrayList<Edge> neighborsEdges = currentVertex.getEdges();
+            for(Edge e: neighborsEdges){
+                Vertex v = e.getTo();
+                System.out.println("Vertex " + currentVertex + " To: " + v);
+                double distance = e.getWeight();
+                int currentCardIndex = cards.indexOf(currentVertex);
+                DijkstraCard currentCard = cards.get(currentCardIndex);
+                int neighborCardIndex = cards.indexOf(v);
+                DijkstraCard neighborCard = cards.get(neighborCardIndex);
+                double tenetiveDistance = currentCard.getDistance() + distance;
+                if(tenetiveDistance<neighborCard.getDistance()){
+                    neighborCard.setDistance(tenetiveDistance);
+                }
             }
+            cards.remove(currentVertex);
+            Collections.sort(cards);
+            DijkstraCard min = cards.get(0);
+            System.out.println(min.getTo().getEdges().toString());
+            min.getTo().removeEdge(currentVertex);
+            System.out.println(min.getTo().getEdges().toString());
+            currentVertex = min.getTo();
+            minValue = min.getDistance();
         }
-        return 2.0;
+        return minValue;
     }
 }

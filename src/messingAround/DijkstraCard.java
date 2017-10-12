@@ -2,7 +2,7 @@ package messingAround;
 
 import java.util.LinkedList;
 
-public class DijkstraCard {
+public class DijkstraCard implements Comparable<DijkstraCard>{
 
     private Vertex to;
     private double distance;
@@ -13,7 +13,18 @@ public class DijkstraCard {
         this.distance = distance;
         path.add(start);
     }
-
+        
+    public int compareTo(DijkstraCard d){
+        if(d.getDistance()>distance){
+            return 1;
+        }
+        else if(d.getDistance()==distance){
+            return 0;
+        }
+        else{
+            return -1;
+        }
+    }
     public Vertex getTo() {
         return to;
     }
@@ -21,7 +32,10 @@ public class DijkstraCard {
     public double getDistance() {
         return distance;
     }
-
+    
+    public void setDistance(double d){
+        distance = d;
+    }
     public LinkedList<Vertex> getPath() {
         return path;
     }
