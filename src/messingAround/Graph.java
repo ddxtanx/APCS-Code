@@ -46,10 +46,11 @@ public class Graph {
             cards.add(card);
         }
         while((unvisited.indexOf(v2)!=-1) && minValue!=Double.POSITIVE_INFINITY){
+            System.out.println("Currently @ " + currentVertex);
             ArrayList<Edge> neighborsEdges = currentVertex.getEdges();
             for(Edge e: neighborsEdges){
                 Vertex v = e.getTo();
-                System.out.println("Vertex " + currentVertex + " To: " + v);
+                System.out.println("Looking @ vertex " + v);
                 double distance = e.getWeight();
                 int currentCardIndex = cards.indexOf(currentVertex);
                 DijkstraCard currentCard = cards.get(currentCardIndex);
@@ -57,15 +58,17 @@ public class Graph {
                 DijkstraCard neighborCard = cards.get(neighborCardIndex);
                 double tenetiveDistance = currentCard.getDistance() + distance;
                 if(tenetiveDistance<neighborCard.getDistance()){
+                    System.out.println("Tenetive Distance is less");
                     neighborCard.setDistance(tenetiveDistance);
+                    neighborCard.addVertex(currentVertex);
                 }
             }
             cards.remove(currentVertex);
+            unvisited.remove(currentVertex);
             Collections.sort(cards);
-            DijkstraCard min = cards.get(0);
-            System.out.println(min.getTo().getEdges().toString());
+            DijkstraCard min = cards.get(min.size()-1);
+            Vertex minVertex = min.getTo();
             min.getTo().removeEdge(currentVertex);
-            System.out.println(min.getTo().getEdges().toString());
             currentVertex = min.getTo();
             minValue = min.getDistance();
         }

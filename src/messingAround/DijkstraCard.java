@@ -63,4 +63,9 @@ public class DijkstraCard implements Comparable<DijkstraCard>{
 
         return (d.getTo().equals(to));
     }
+    
+    @Override
+    public String toString(){
+        return "To " + to + " with a current distance of " + distance;
+    }
 }

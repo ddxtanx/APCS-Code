@@ -24,7 +24,6 @@ public class GraphExample {
         g.links();
         Vertex v5 = new Vertex("v5");
         DijkstraCard c = new DijkstraCard(v1, v2, 0);
-        System.out.println(v2.equals(c));
         System.out.println(g.distance(v1, v2));
     }
 }
