@@ -2,6 +2,8 @@ package messingAround;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+
 public class Graph {
     private ArrayList<Vertex> vertices = new ArrayList<>();
 
@@ -27,11 +29,11 @@ public class Graph {
         vertices.add(v);
     }
 
-    public double distance(Vertex v1, Vertex v2){
+    public DijkstraCard distance(Vertex v1, Vertex v2){
         if(vertices.indexOf(v1)==-1 || vertices.indexOf(v2)==-1){
             throw new IllegalArgumentException("Vertices must be in the graph!");
         }
-        ArrayList<DijkstraCard> cards = new ArrayList<>();
+        HashMap<Vertex, DijkstraCard> cards = new HashMap<>();
         ArrayList<Vertex> unvisited = new ArrayList<>();
         Vertex currentVertex = v1;
         double minValue = 0;
@@ -43,35 +45,36 @@ public class Graph {
             } else{
                 card = new DijkstraCard(v1, v1, 0);
             }
-            cards.add(card);
+            cards.put(v, card);
         }
+        DijkstraCard finalCard = new DijkstraCard();
         while((unvisited.indexOf(v2)!=-1) && minValue!=Double.POSITIVE_INFINITY){
-            System.out.println("Currently @ " + currentVertex);
+            ArrayList<DijkstraCard> cardsList = new ArrayList<>(cards.values());
+            Collections.sort(cardsList);
+            DijkstraCard min = cardsList.get(cards.size()-1);
+            currentVertex = min.getTo();
+            minValue = min.getDistance();
             ArrayList<Edge> neighborsEdges = currentVertex.getEdges();
             for(Edge e: neighborsEdges){
                 Vertex v = e.getTo();
-                System.out.println("Looking @ vertex " + v);
                 double distance = e.getWeight();
-                int currentCardIndex = cards.indexOf(currentVertex);
-                DijkstraCard currentCard = cards.get(currentCardIndex);
-                int neighborCardIndex = cards.indexOf(v);
-                DijkstraCard neighborCard = cards.get(neighborCardIndex);
+                DijkstraCard currentCard = cards.get(currentVertex);
+                DijkstraCard neighborCard = cards.get(v);
                 double tenetiveDistance = currentCard.getDistance() + distance;
                 if(tenetiveDistance<neighborCard.getDistance()){
-                    System.out.println("Tenetive Distance is less");
                     neighborCard.setDistance(tenetiveDistance);
                     neighborCard.addVertex(currentVertex);
                 }
+                v.removeEdge(currentVertex);
+            }
+            if(currentVertex.equals(v2)){
+                finalCard = cards.get(currentVertex);
             }
             cards.remove(currentVertex);
             unvisited.remove(currentVertex);
-            Collections.sort(cards);
-            DijkstraCard min = cards.get(min.size()-1);
-            Vertex minVertex = min.getTo();
-            min.getTo().removeEdge(currentVertex);
-            currentVertex = min.getTo();
-            minValue = min.getDistance();
         }
-        return minValue;
+        finalCard.addVertex(v2);
+        finalCard.getPath().remove(0);
+        return finalCard;
     }
 }

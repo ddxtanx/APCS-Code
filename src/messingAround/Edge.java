@@ -30,4 +30,14 @@ public class Edge {
     public String toString(){
         return "To " + to + " with distance: " + weight;
     }
+//    TODO: Fix equality; as it stands, even if an edge starts at 2 different vertices, but ends at the same vertex with the same weight, it will return true.
+    @Override
+    public boolean equals(Object e){
+        if(!(e instanceof Edge)){
+            return false;
+        }
+
+        Edge ed = (Edge) e;
+        return ed.getTo().equals(to);
+    }
 }

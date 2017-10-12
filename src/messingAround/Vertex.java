@@ -38,9 +38,13 @@ public class Vertex {
 
     public Edge addEdge(Vertex v2, double weight){
         Edge e = new Edge(v2, weight);
-        edges.add(e);
-        v2.addEdge(new Edge(this, weight));
-        return e.clone();
+        if(edges.indexOf(e)==-1) {
+            edges.add(e);
+            v2.addEdge(new Edge(this, weight));
+            return e.clone();
+        } else{
+            return e.clone();
+        }
     }
     @Override
     public boolean equals(Object e){

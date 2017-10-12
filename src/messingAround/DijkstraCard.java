@@ -7,11 +7,16 @@ public class DijkstraCard implements Comparable<DijkstraCard>{
     private Vertex to;
     private double distance;
     private LinkedList<Vertex> path = new LinkedList<>();
-
+//TODO: For some reason, the start of the path includes the starting vertex twice.
     public DijkstraCard(Vertex start, Vertex to, double distance){
         this.to = to;
         this.distance = distance;
         path.add(start);
+    }
+
+    public DijkstraCard(){
+        this.to = new Vertex("");
+        this.distance = 0;
     }
         
     public int compareTo(DijkstraCard d){
