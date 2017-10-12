@@ -43,4 +43,12 @@ public class Vertex {
 
         return (v.getName().equals(name) && v.getEdges().equals(edges));
     }
+
+    public ArrayList<Vertex> getNeighbors(){
+        ArrayList<Vertex> neighbors = new ArrayList<>();
+        for(Edge e: edges){
+            neighbors.add(e.getTo());
+        }
+        return neighbors;
+    }
 }

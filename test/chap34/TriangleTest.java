@@ -1,11 +1,10 @@
 package chap34;
-import chap34.Triangle;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TriangleTest {
-    Triangle tri = new Triangle(0,0,0,3,4,0);
+    private Triangle tri = new Triangle(0,0,0,3,4,0);
     @Test
     void getSide1Length() {
         assertEquals(3, tri.getSide1Length());
@@ -38,7 +37,7 @@ class TriangleTest {
 
     @Test
     void getAngle2() {
-        assertEquals(Math.toDegrees(Math.acos(3.0/5)), tri.getAngle2());
+        assertEquals(Math.toDegrees(Math.asin(3.0/5)), tri.getAngle2());
     }
 
     @Test
