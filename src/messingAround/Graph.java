@@ -1,5 +1,6 @@
 package messingAround;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,7 +9,7 @@ public class Graph {
     private ArrayList<Vertex> vertices = new ArrayList<>();
 
     public Graph(ArrayList<Vertex> v){
-        vertices = (ArrayList<Vertex>) v.clone();
+        vertices = new ArrayList<>(v);
     }
 
     public void links(){
@@ -37,7 +38,7 @@ public class Graph {
         }
         HashMap<Vertex, DijkstraCard> cards = new HashMap<>();
         ArrayList<Vertex> unvisited = new ArrayList<>();
-        Vertex currentVertex = v1;
+        Vertex currentVertex = v1Copy;
         double minValue = 0;
         for(Vertex v: vertices){
             DijkstraCard card;
@@ -113,5 +114,9 @@ public class Graph {
             }
         }
         return total;
+    }
+
+    public static void writeGraphToFile(String fileName){
+
     }
 }

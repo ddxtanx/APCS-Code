@@ -6,13 +6,13 @@ import java.util.Random;
 public class GraphExample {
 
     public static void main(String[] args) {
-        int vertices = 5;
+        int vertices = 20;
         Random rand = new Random();
         ArrayList<Vertex> vertexList = new ArrayList<>();
         for(int x = 0; x<vertices; x++){
             vertexList.add(new Vertex("v"+x));
         }
-        for(int x = 0; x<vertices*2; x++){
+        for(int x = 0; x<vertices*vertices; x++){
             int index1 = rand.nextInt(vertices);
             int index2 = rand.nextInt(vertices);
             while(index2==index1){
@@ -38,6 +38,15 @@ public class GraphExample {
         Vertex v2 = vertexList.get(index2);
         DijkstraCard distance = g.distance(v1, v2);
         System.out.println("Distance between " + v1 + " and " + v2 + " is " + distance.getDistance() + " via " + distance.getPath());
+        index1 = rand.nextInt(vertices);
+        index2 = rand.nextInt(vertices);
+        while(index2==index1){
+            index2 = rand.nextInt(vertices);
+        }
+        v1 = vertexList.get(index1);
+        v2 = vertexList.get(index2);
+        distance = g.distance(v1, v2);
         System.out.println("Distance between " + v1 + " and " + v2 + " is " + distance.getDistance() + " via " + distance.getPath());
+        System.out.println(g.getDistances());
     }
 }
