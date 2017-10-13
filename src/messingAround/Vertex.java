@@ -8,7 +8,10 @@ public class Vertex {
     public Vertex(String n){
         name = n;
     }
-
+    public Vertex(String n, ArrayList<Edge> ed){
+        name = n;
+        edges = ed;
+    }
     public String getName(){
         return name;
     }
@@ -29,6 +32,14 @@ public class Vertex {
         return edges;
     }
 
+    public Edge getEdgeToVertex(Vertex v){
+        int index = edges.indexOf(v);
+        System.out.println(edges);
+        if(index==-1){
+            throw new IllegalArgumentException("Vertices must have an edge between them to return an edge!");
+        }
+        return edges.get(index);
+    }
     public Vertex traverseEdge(int index){
         if(index<0 || index>=edges.size()){
             throw new IllegalArgumentException("You cannot traverse to a vertex that does not exist!");

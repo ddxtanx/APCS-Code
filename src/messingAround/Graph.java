@@ -30,6 +30,8 @@ public class Graph {
     }
 
     public DijkstraCard distance(Vertex v1, Vertex v2){
+        Vertex v1Copy = new Vertex(v1.getName(), new ArrayList<>(v1.getEdges()));
+        Vertex v2Copy = new Vertex(v2.getName(), new ArrayList<>(v2.getEdges()));
         if(vertices.indexOf(v1)==-1 || vertices.indexOf(v2)==-1){
             throw new IllegalArgumentException("Vertices must be in the graph!");
         }
@@ -51,7 +53,7 @@ public class Graph {
         while((unvisited.indexOf(v2)!=-1) && minValue!=Double.POSITIVE_INFINITY){
             ArrayList<DijkstraCard> cardsList = new ArrayList<>(cards.values());
             Collections.sort(cardsList);
-            DijkstraCard min = cardsList.get(cards.size()-1);
+            DijkstraCard min = cardsList.get(cards.size() - 1);
             currentVertex = min.getTo();
             minValue = min.getDistance();
             ArrayList<Edge> neighborsEdges = currentVertex.getEdges();
@@ -65,6 +67,8 @@ public class Graph {
                     neighborCard.setDistance(tenetiveDistance);
                     neighborCard.addVertex(currentVertex);
                 }
+            }
+            for(Vertex v: unvisited){
                 v.removeEdge(currentVertex);
             }
             if(currentVertex.equals(v2)){
@@ -75,6 +79,39 @@ public class Graph {
         }
         finalCard.addVertex(v2);
         finalCard.getPath().remove(0);
+        /*if(finalCard.getDistance()==0 && finalCard.getDistance()!=Double.POSITIVE_INFINITY){
+            finalCard.setDistance(v1Copy.getEdgeToVertex(v2Copy).getWeight());
+        }*/
         return finalCard;
+    }
+
+    public HashMap<Vertex, HashMap<Vertex, Double>> getDistances(){
+        HashMap<Vertex, HashMap<Vertex, Double>> distances = new HashMap<>();
+        for(Vertex v: vertices){
+            HashMap<Vertex, Double> vertexDistances = new HashMap<>();
+            for(Vertex V: vertices){
+                if(!V.equals(v)) {
+                    vertexDistances.put(V, this.distance(v, V).getDistance());
+                }
+            }
+            distances.put(v, vertexDistances);
+        }
+        return distances;
+    }
+
+    public double vote(Vertex v){
+        HashMap<Vertex, HashMap<Vertex, Double>> distances = getDistances();
+        System.out.println(distances);
+        if(vertices.indexOf(v)==-1){
+            throw new IllegalArgumentException("Vertex must be in the graph!");
+        }
+        double total = 0;
+        for(Vertex vert: vertices){
+            if(!vert.equals(v)){
+                System.out.println(distances.get(v).get(vert));
+                total += 1.0/distances.get(v).get(vert);
+            }
+        }
+        return total;
     }
 }

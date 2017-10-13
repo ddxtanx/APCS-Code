@@ -38,5 +38,6 @@ public class GraphExample {
         Vertex v2 = vertexList.get(index2);
         DijkstraCard distance = g.distance(v1, v2);
         System.out.println("Distance between " + v1 + " and " + v2 + " is " + distance.getDistance() + " via " + distance.getPath());
+        System.out.println("Distance between " + v1 + " and " + v2 + " is " + distance.getDistance() + " via " + distance.getPath());
     }
 }
