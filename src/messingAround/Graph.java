@@ -1,11 +1,10 @@
 package messingAround;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 public class Graph {
     private ArrayList<Vertex> vertices = new ArrayList<>();
@@ -82,9 +81,9 @@ public class Graph {
         }
         finalCard.addVertex(v2);
         finalCard.getPath().remove(0);
-        /*if(finalCard.getDistance()==0 && finalCard.getDistance()!=Double.POSITIVE_INFINITY){
-            finalCard.setDistance(v1Copy.getEdgeToVertex(v2Copy).getWeight());
-        }*/
+        if(finalCard.getDistance() == 0){
+            finalCard.setDistance(Double.POSITIVE_INFINITY);
+        }
         return finalCard;
     }
 
@@ -118,13 +117,15 @@ public class Graph {
         return total;
     }
 
-    public void writeToFile(String fileName) throws IOException{
+    public void writeToFile(String fileName) throws IOException {
         String graph = "";
         graph += vertices.size();
         for(Vertex v: vertices){
             for(Edge e: v.getEdges()){
                 graph += "\n";
-                graph += v+","+e.getTo()+","+e.getWeight();
+                String vertexString = v.toString();
+                vertexString = vertexString.replaceAll("v", "");
+                graph += vertexString+","+e.getTo().toString().replaceAll("v","")+","+e.getWeight();
             }
         }
         Path path = Paths.get(fileName);
@@ -132,6 +133,55 @@ public class Graph {
         byte[] graphBytes = graph.getBytes();
         
         Files.write(path, graphBytes);
-        System.out.println(graph);
+    }
+
+    public static Graph readFromFile(String fileName){
+        Path path = Paths.get(fileName);
+        Graph g = new Graph(new ArrayList<>());
+        try{
+            List<String> graphStrings = Files.readAllLines(path);
+            int numVertices = Integer.parseInt(graphStrings.get(0));
+            ArrayList<Vertex> vertices = new ArrayList<>();
+            for(int x = 0; x<numVertices; x++){
+                vertices.add(new Vertex("v"+x));
+            }
+            graphStrings.remove(0);
+            for(String edge: graphStrings){
+                String[] partitions = edge.split(",");
+                int startIndex = Integer.parseInt(partitions[0]);
+                int toIndex = Integer.parseInt(partitions[1]);
+                double weight = Double.parseDouble(partitions[2]);
+                vertices.get(startIndex).addEdge(vertices.get(toIndex), weight);
+            }
+            g = new Graph(vertices);
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        return g;
+    }
+
+    public static Graph randomGraph(int vertices){
+        Random rand = new Random();
+        ArrayList<Vertex> vertexList = new ArrayList<>();
+        for(int x = 0; x<vertices; x++){
+            vertexList.add(new Vertex("v"+x));
+        }
+        for(int x = 0; x<vertices*2; x++){
+            int index1 = rand.nextInt(vertices);
+            int index2 = rand.nextInt(vertices);
+            while(index2==index1){
+                index2 = rand.nextInt(vertices);
+            }
+            Vertex e1 = vertexList.get(index1);
+            Vertex e2 = vertexList.get(index2);
+            double distance = (double) rand.nextInt(vertices)+1;
+            e1.addEdge(e2, distance);
+        }
+        ArrayList<Vertex> realList = new ArrayList<>();
+        for(Vertex v: vertexList){
+            realList.add(v);
+        }
+        Graph g = new Graph(realList);
+        return g;
     }
 }

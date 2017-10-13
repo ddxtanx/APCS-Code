@@ -1,44 +1,19 @@
 package messingAround;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class GraphExample {
 
     public static void main(String[] args) {
-        int vertices = 5;
-        Random rand = new Random();
-        ArrayList<Vertex> vertexList = new ArrayList<>();
-        for(int x = 0; x<vertices; x++){
-            vertexList.add(new Vertex("v"+x));
-        }
-        for(int x = 0; x<vertices*2; x++){
-            int index1 = rand.nextInt(vertices);
-            int index2 = rand.nextInt(vertices);
-            while(index2==index1){
-                index2 = rand.nextInt(vertices);
-            }
-            Vertex e1 = vertexList.get(index1);
-            Vertex e2 = vertexList.get(index2);
-            double distance = (double) rand.nextInt(vertices)+1;
-            e1.addEdge(e2, distance);
-        }
-        ArrayList<Vertex> realList = new ArrayList<>();
-        for(Vertex v: vertexList){
-            realList.add(v);
-        }
-        Graph g = new Graph(realList);
+        Graph g = Graph.readFromFile("graph.txt");
         g.links();
-        int index1 = rand.nextInt(vertices);
-        int index2 = rand.nextInt(vertices);
-        while(index2==index1){
-            index2 = rand.nextInt(vertices);
-        }
-        Vertex v1 = vertexList.get(index1);
-        Vertex v2 = vertexList.get(index2);
-        DijkstraCard distance = g.distance(v1, v2);
-        System.out.println("Distance between " + v1 + " and " + v2 + " is " + distance.getDistance() + " via " + distance.getPath());
-        System.out.println("Distance between " + v1 + " and " + v2 + " is " + distance.getDistance() + " via " + distance.getPath());
-        g.writeToFile("graph.txt");
+        System.out.println(g.getDistances());
+        ArrayList<Vertex> vertices = g.getVertices();
+        Vertex v5 = vertices.get(5);
+        Vertex v6 = vertices.get(6);
+        DijkstraCard distance = g.distance(v5, v6);
+        System.out.println("The distance from " + v5 + " to " + v6 + " is " + distance.getDistance() + " path being " + distance.getPath());
     }
 }
