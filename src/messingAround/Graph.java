@@ -1,6 +1,8 @@
 package messingAround;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -116,7 +118,20 @@ public class Graph {
         return total;
     }
 
-    public static void writeGraphToFile(String fileName){
-
+    public void writeToFile(String fileName) throws IOException{
+        String graph = "";
+        graph += vertices.size();
+        for(Vertex v: vertices){
+            for(Edge e: v.getEdges()){
+                graph += "\n";
+                graph += v+","+e.getTo()+","+e.getWeight();
+            }
+        }
+        Path path = Paths.get(fileName);
+        
+        byte[] graphBytes = graph.getBytes();
+        
+        Files.write(path, graphBytes);
+        System.out.println(graph);
     }
 }
