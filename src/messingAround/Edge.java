@@ -40,4 +40,8 @@ public class Edge {
         Edge ed = (Edge) e;
         return ed.getTo().equals(to);
     }
+
+    public void setTo(Vertex to){
+        this.to = to;
+    }
 }

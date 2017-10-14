@@ -18,7 +18,11 @@ public class DijkstraCard implements Comparable<DijkstraCard>{
         this.to = new Vertex("");
         this.distance = 0;
     }
-        
+    public DijkstraCard(Vertex to, double distance, LinkedList<Vertex> path){
+        this.to = to;
+        this.distance = distance;
+        this.path = path;
+    }
     public int compareTo(DijkstraCard d){
         if(d.getDistance()>distance){
             return 1;
@@ -72,5 +76,9 @@ public class DijkstraCard implements Comparable<DijkstraCard>{
     @Override
     public String toString(){
         return "To " + to + " with a current distance of " + distance;
+    }
+
+    public void removePath(){
+        path = new LinkedList<>();
     }
 }

@@ -1,7 +1,6 @@
 package messingAround;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -9,14 +8,28 @@ import java.util.*;
 
 public class Graph {
     private ArrayList<Vertex> vertices = new ArrayList<>();
+    private boolean connected = true;
+    private HashMap<Vertex, HashMap<Vertex, Double>> distances = null;
+    public Graph(ArrayList<Vertex> vertices){
+        ArrayList<String> names = new ArrayList<>();
+        for(Vertex v: vertices){
+            if(names.indexOf(v.getName())==-1){
+                names.add(v.getName());
+            } else{
+                throw new IllegalArgumentException("All vertices in a graph must have a unique name");
+            }
+        }
+        this.vertices = new ArrayList<>(vertices);
+    }
 
-    public Graph(ArrayList<Vertex> v){
-        vertices = new ArrayList<>(v);
+    public Graph(){
+        vertices = new ArrayList<>();
     }
 
     public void links(){
         for(Vertex v: vertices){
             System.out.println(v.getName() + " is linked to ");
+
             for(int x = 0; x<v.getEdges().size(); x++){
                 Edge e = v.getEdges().get(x);
                 System.out.println("\t " + e.getTo().getName() + " with a weight of " + e.getWeight());
@@ -64,7 +77,7 @@ public class Graph {
                 Vertex v = e.getTo();
                 double distance = e.getWeight();
                 DijkstraCard currentCard = cards.get(currentVertex);
-                DijkstraCard neighborCard = cards.get(v);
+                DijkstraCard neighborCard = cards.get(vertices.get(vertices.indexOf(v)));
                 double tenetiveDistance = currentCard.getDistance() + distance;
                 if(tenetiveDistance<neighborCard.getDistance()){
                     neighborCard.setDistance(tenetiveDistance);
@@ -72,35 +85,47 @@ public class Graph {
                 }
             }
             for(Vertex v: unvisited){
-                v = v.removeEdge(currentVertex);
+                unvisited.set(unvisited.indexOf(v), v.removeEdge(currentVertex));
             }
             if(currentVertex.equals(v2)){
                 finalCard = cards.get(currentVertex);
             }
             unvisited.remove(currentVertex);
         }
-        if(finalCard.getPath().get(0).equals(finalCard.getPath().get(1))){
+        if(finalCard.getPath().size()<2) {
+            finalCard.getPath().add(0, v1);
+        } else if(finalCard.getPath().get(0).equals(finalCard.getPath().get(1))){
             finalCard.getPath().remove(0);
         }
         finalCard.addVertex(v2);
-        if(finalCard.getDistance() == 0){
+        if(finalCard.getDistance() == 0 || finalCard.getDistance() == Double.POSITIVE_INFINITY){
             finalCard.setDistance(Double.POSITIVE_INFINITY);
+            finalCard.removePath();
+            connected = false;
         }
         return finalCard;
     }
 
     public HashMap<Vertex, HashMap<Vertex, Double>> getDistances(){
-        HashMap<Vertex, HashMap<Vertex, Double>> distances = new HashMap<>();
-        for(Vertex v: vertices){
-            HashMap<Vertex, Double> vertexDistances = new HashMap<>();
-            for(Vertex V: vertices){
-                if(!V.equals(v)) {
-                    vertexDistances.put(V, this.distance(v, V).getDistance());
+        if(distances != null){
+            return distances;
+        } else {
+            HashMap<Vertex, HashMap<Vertex, Double>> localDistances = new HashMap<>();
+            for (Vertex v : vertices) {
+                HashMap<Vertex, Double> vertexDistances = new HashMap<>();
+                for (Vertex V : vertices) {
+                    if (!V.equals(v)) {
+                        vertexDistances.put(V, this.distance(v, V).getDistance());
+                    }
                 }
+                localDistances.put(v, vertexDistances);
             }
-            distances.put(v, vertexDistances);
+            if (distances == null) {
+                distances = new HashMap<>();
+                distances.putAll(localDistances);
+            }
+            return localDistances;
         }
-        return distances;
     }
 
     public double vote(Vertex v){
@@ -111,6 +136,8 @@ public class Graph {
         double total = 0;
         for(Vertex vert: vertices){
             if(!vert.equals(v)){
+                v = vertices.get(vertices.indexOf(v));
+                vert = vertices.get(vertices.indexOf(vert));
                 total += 1.0/distances.get(v).get(vert);
             }
         }
@@ -160,13 +187,13 @@ public class Graph {
         return g;
     }
 
-    public static Graph randomGraph(int vertices){
+    public static Graph random(int vertices, int edges){
         Random rand = new Random();
         ArrayList<Vertex> vertexList = new ArrayList<>();
         for(int x = 0; x<vertices; x++){
             vertexList.add(new Vertex("v"+x));
         }
-        for(int x = 0; x<vertices*2; x++){
+        for(int x = 0; x<edges; x++){
             int index1 = rand.nextInt(vertices);
             int index2 = rand.nextInt(vertices);
             while(index2==index1){
@@ -175,13 +202,72 @@ public class Graph {
             Vertex e1 = vertexList.get(index1);
             Vertex e2 = vertexList.get(index2);
             double distance = (double) rand.nextInt(vertices)+1;
-            e1.addEdge(e2, distance);
+            if(!e1.addEdge(e2, distance)){
+                x--;
+            };
         }
         ArrayList<Vertex> realList = new ArrayList<>();
-        for(Vertex v: vertexList){
-            realList.add(v);
-        }
+        realList.addAll(vertexList);
         Graph g = new Graph(realList);
         return g;
+    }
+
+    public boolean isConnected(){
+        if(distances == null){
+            getDistances();
+        }
+        return connected;
+    }
+    public boolean isEulerPathable(Vertex startVertex){
+        int numOfOdds = 0;
+        for(Vertex v: vertices){
+            numOfOdds += v.getEdges().size() % 2;
+        }
+        return numOfOdds==0;
+    }
+    public DijkstraCard shortestPath(Vertex startingVertex){
+        if(vertices.indexOf(startingVertex)==-1){
+            throw new IllegalArgumentException("Starting vertex must be in the graph!");
+        }
+        if(!isConnected() || !isEulerPathable(startingVertex)){
+            return new DijkstraCard();
+        }
+        ArrayList<Vertex> verticesCopy = new ArrayList<>(vertices);
+        Graph g = new Graph(verticesCopy);
+        LinkedList<Vertex> path = new LinkedList<>();
+        Vertex currentVertex = startingVertex;
+        Edge bestEdge = startingVertex.getEdges().get(0);
+        double maxScore = 0;
+        int rounds = 0;
+        double distance = 0;
+        ArrayList<Vertex> unvisited = new ArrayList<>(vertices);
+        while((unvisited.size()!=0)){
+            rounds++;
+            maxScore = 0;
+            path.add(currentVertex);
+            for(Edge e: currentVertex.getEdges()){
+                Vertex toVertex = e.getTo();
+                double score;
+                try {
+                    score = g.vote(toVertex);
+                } catch(NullPointerException n){
+                    n.printStackTrace();
+                    score = 0;
+                }
+                //System.out.println(currentVertex + "," + toVertex + "," + maxScore + "," + score);
+                if(score>maxScore){
+                    maxScore = score;
+                    bestEdge = e;
+                }
+            }
+            distance += bestEdge.getWeight();
+            unvisited.remove(currentVertex);
+            verticesCopy.set(verticesCopy.indexOf(currentVertex), currentVertex.removeEdge(bestEdge.getTo()));
+            currentVertex = bestEdge.getTo().removeEdge(currentVertex);
+            verticesCopy.set(verticesCopy.indexOf(currentVertex), currentVertex);
+            g = new Graph(verticesCopy);
+        }
+        path.add(startingVertex);
+        return new DijkstraCard(startingVertex, distance, path);
     }
 }

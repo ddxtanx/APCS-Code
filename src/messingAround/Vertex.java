@@ -20,14 +20,6 @@ public class Vertex {
     public void addEdge(Edge edge){
         edges.add(edge);
     }
-    
-    public void removeEdge(Edge edge){
-        edges.remove(edge);
-    }
-    
-    public void removeEdgeMutator(Vertex v){
-        edges.remove(v);
-    }
 
     public Vertex removeEdge(Vertex v){
         ArrayList<Edge> edgesClone = new ArrayList<>(edges);
@@ -38,30 +30,15 @@ public class Vertex {
     public ArrayList<Edge> getEdges(){
         return edges;
     }
-
-    public Edge getEdgeToVertex(Vertex v){
-        int index = edges.indexOf(v);
-        System.out.println(edges);
-        if(index==-1){
-            throw new IllegalArgumentException("Vertices must have an edge between them to return an edge!");
-        }
-        return edges.get(index);
-    }
-    public Vertex traverseEdge(int index){
-        if(index<0 || index>=edges.size()){
-            throw new IllegalArgumentException("You cannot traverse to a vertex that does not exist!");
-        }
-        return edges.get(index).getTo();
-    }
-
-    public Edge addEdge(Vertex v2, double weight){
+    //Returns false if the edge already exists, else it returns true
+    public boolean addEdge(Vertex v2, double weight){
         Edge e = new Edge(v2, weight);
         if(edges.indexOf(e)==-1) {
             edges.add(e);
             v2.addEdge(new Edge(this, weight));
-            return e.clone();
+            return true;
         } else{
-            return e.clone();
+            return false;
         }
     }
     @Override
@@ -69,7 +46,8 @@ public class Vertex {
         if(!(e instanceof Vertex)){
             if(e instanceof DijkstraCard){
                 DijkstraCard d = (DijkstraCard) e;
-                return d.getTo().getName().equals(name) && d.getTo().getEdges().equals(edges);
+                Vertex v = d.getTo();
+                return equals(v);
             } else if(e instanceof Edge){
                 Edge ed = (Edge) e;
                 Vertex to = ed.getTo();
@@ -79,15 +57,7 @@ public class Vertex {
         }
         Vertex v = (Vertex) e;
 
-        return (v.getName().equals(name) && v.getEdges().equals(edges));
-    }
-
-    public ArrayList<Vertex> getNeighbors(){
-        ArrayList<Vertex> neighbors = new ArrayList<>();
-        for(Edge e: edges){
-            neighbors.add(e.getTo());
-        }
-        return neighbors;
+        return (v.getName().equals(name));
     }
     
     @Override
