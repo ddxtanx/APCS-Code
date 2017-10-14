@@ -1,5 +1,6 @@
 package messingAround;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Vertex {
@@ -24,8 +25,14 @@ public class Vertex {
         edges.remove(edge);
     }
     
-    public void removeEdge(Vertex v){
+    public void removeEdgeMutator(Vertex v){
         edges.remove(v);
+    }
+
+    public Vertex removeEdge(Vertex v){
+        ArrayList<Edge> edgesClone = new ArrayList<>(edges);
+        edgesClone.remove(v);
+        return new Vertex(name, edgesClone);
     }
 
     public ArrayList<Edge> getEdges(){
@@ -86,5 +93,14 @@ public class Vertex {
     @Override
     public String toString(){
         return name;
+    }
+
+    @Override
+    public Vertex clone(){
+        ArrayList<Edge> edgesCopy = new ArrayList<>();
+        for(Edge e: edges){
+            edgesCopy.add(e.clone());
+        }
+        return new Vertex(name, edgesCopy);
     }
 }
