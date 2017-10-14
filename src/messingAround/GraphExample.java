@@ -1,12 +1,13 @@
 package messingAround;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GraphExample {
 
     public static void main(String[] args) {
         int vertices = 7;
-        Graph g = Graph.readFromFile("graph.txt");
+        Graph g = Graph.readFromFile("testGraph.txt");
         g.links();
         ArrayList<Vertex> verticesList = g.getVertices();
         Vertex v1 = verticesList.get(1);

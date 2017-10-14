@@ -261,10 +261,21 @@ public class Graph {
                 }
             }
             distance += bestEdge.getWeight();
-            unvisited.remove(currentVertex);
-            verticesCopy.set(verticesCopy.indexOf(currentVertex), currentVertex.removeEdge(bestEdge.getTo()));
-            currentVertex = bestEdge.getTo().removeEdge(currentVertex);
-            verticesCopy.set(verticesCopy.indexOf(currentVertex), currentVertex);
+            Vertex currentVertexCopy = currentVertex.clone();
+            Vertex to = bestEdge.getTo();
+            System.out.println("START");
+            System.out.println(currentVertex);
+            System.out.println(currentVertex.getEdges());
+            System.out.println(to);
+            System.out.println(to.getEdges());
+            System.out.println(unvisited);
+            System.out.println("END");
+            currentVertexCopy = currentVertexCopy.removeEdge(to);
+            to = to.removeEdge(currentVertexCopy);
+            verticesCopy.set(vertices.indexOf(currentVertex), currentVertexCopy);
+            verticesCopy.set(vertices.indexOf(to), to);
+            currentVertex = to;
+            unvisited.remove(currentVertexCopy);
             g = new Graph(verticesCopy);
         }
         path.add(startingVertex);
