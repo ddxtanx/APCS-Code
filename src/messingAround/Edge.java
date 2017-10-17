@@ -8,6 +8,11 @@ public class Edge {
         this.to = to;
         this.weight = weight;
     }
+
+    public Edge(){
+        this.to = new Vertex("");
+        this.weight = 0;
+    }
     public Edge(Vertex start, Vertex to, double weight){
         this.to = to;
         this.weight = weight;

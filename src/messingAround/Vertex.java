@@ -17,6 +17,15 @@ public class Vertex {
         return name;
     }
 
+
+    public Edge getEdge(Vertex v){
+        int index = edges.indexOf(v);
+        if(index==-1){
+            return new Edge();
+        } else{
+            return edges.get(index);
+        }
+    }
     public void addEdge(Edge edge){
         edges.add(edge);
     }
