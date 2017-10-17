@@ -39,9 +39,14 @@ public class Calendar {
     }
 
     public boolean july4Weekend(){
-        int newYear = year-1582;
-        int numOfLeapDays = newYear/4-newYear/100+newYear/400;
-        int daySignifier = Math.floorMod(year%7-numOfLeapDays, 7);
-        return daySignifier==6||daySignifier==0;
+        //This is going to use Zeller's Rule
+        int k = 4;
+        int m = 5;
+        int d = year%100;
+        int c = year/100;
+        int f = k + ((13*m-1)/5) + d + (d/4) + (c/4) -2*c;
+        f = Math.floorMod(f, 7);
+        return (f==0||f==6);
     }
+
 }
