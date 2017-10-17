@@ -1,6 +1,7 @@
 package chap34;
 
-import java.util.HashMap;
+
+import java.util.ArrayList;
 
 public class Calendar {
     private int year;
@@ -14,20 +15,8 @@ public class Calendar {
     }
 
     public String chineseZodiac(){
-        HashMap<Integer, String> hashList = new HashMap<>();
-        hashList.put(0, "Rat");
-        hashList.put(1, "Ox");
-        hashList.put(2, "Tiger");
-        hashList.put(3, "Rabbit");
-        hashList.put(4, "Dragon");
-        hashList.put(5, "Snake");
-        hashList.put(6, "Horse");
-        hashList.put(7, "Goat");
-        hashList.put(8, "Monkey");
-        hashList.put(9, "Rooster");
-        hashList.put(10, "Dog");
-        hashList.put(11, "Pig");
-        return hashList.get((year-4)%12);
+        String[] zodiacYears = {"Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"};
+        return zodiacYears[(year-4)%12];
     }
 
     public void setYear(int year){
