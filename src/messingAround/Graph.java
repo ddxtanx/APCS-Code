@@ -85,7 +85,7 @@ public class Graph {
                 }
             }
             for(Vertex v: unvisited){
-                unvisited.set(unvisited.indexOf(v), v.removeEdge(currentVertex));
+                unvisited.set(unvisited.indexOf(v), v.removeEdge(currentVertex)[0]);
             }
             if(currentVertex.equals(v2)){
                 finalCard = cards.get(currentVertex);
@@ -263,19 +263,11 @@ public class Graph {
             distance += bestEdge.getWeight();
             Vertex currentVertexCopy = currentVertex.clone();
             Vertex to = bestEdge.getTo();
-            System.out.println("START");
-            System.out.println(currentVertex);
-            System.out.println(currentVertex.getEdges());
-            System.out.println(to);
-            System.out.println(to.getEdges());
-            System.out.println(unvisited);
-            System.out.println("END");
-            currentVertexCopy = currentVertexCopy.removeEdge(to);
-            to = to.removeEdge(currentVertexCopy);
-            verticesCopy.set(vertices.indexOf(currentVertex), currentVertexCopy);
-            verticesCopy.set(vertices.indexOf(to), to);
+            Vertex[] verticesWOEdges = currentVertexCopy.removeEdge(to);
+            currentVertex.set(verticesWOEdges[0]);
+            to.set(verticesWOEdges[1]);
             currentVertex = to;
-            unvisited.remove(currentVertexCopy);
+            unvisited.remove(currentVertex);
             g = new Graph(verticesCopy);
         }
         path.add(startingVertex);

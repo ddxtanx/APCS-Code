@@ -30,10 +30,12 @@ public class Vertex {
         edges.add(edge);
     }
 
-    public Vertex removeEdge(Vertex v){
+    public Vertex[] removeEdge(Vertex v){
         ArrayList<Edge> edgesClone = new ArrayList<>(edges);
         edgesClone.remove(v);
-        return new Vertex(name, edgesClone);
+        Vertex vClone = v.clone();
+        vClone.getEdges().remove(this);
+        return new Vertex[]{new Vertex(name, edgesClone), vClone};
     }
 
     public ArrayList<Edge> getEdges(){
@@ -84,5 +86,10 @@ public class Vertex {
             edgesCopy.add(e.clone());
         }
         return new Vertex(name, edgesCopy);
+    }
+
+    public void set(Vertex v){
+        edges = (ArrayList<Edge>) v.getEdges().clone();
+        name = v.name;
     }
 }

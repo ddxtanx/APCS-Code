@@ -43,8 +43,11 @@ class VertexTest {
         Vertex v4 = new Vertex("v4");
         Vertex v5 = new Vertex("v6");
         v.addEdge(v2, 10);
-        v = v.removeEdge(v2);
+        Vertex[] removedVertices = v.removeEdge(v2);
+        v = removedVertices[0];
+        v2 = removedVertices[1];
         assertEquals(0, v.getEdges().size(), "Operand vertex");
+        assertEquals(0, v2.getEdges().size());
     }
 
     @Test

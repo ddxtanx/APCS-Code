@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class GraphExample {
 
     public static void main(String[] args) {
-        int vertices = 9;
-        Graph g = Graph.readFromFile("testGraph.txt");
+        int vertices = 11;
+        Graph g = Graph.randomCompleteGraph(vertices);
         g.links();
         ArrayList<Vertex> verticesList = g.getVertices();
         Vertex v1 = verticesList.get(0);
@@ -17,5 +17,8 @@ public class GraphExample {
         System.out.println(g.getDistances());
         System.out.println(g.vote(v1));
         System.out.println(g.isEulerPathable(v1));
+        DijkstraCard shortestPath = g.shortestPath(v1);
+        System.out.println(shortestPath.getDistance());
+        System.out.println(shortestPath.getPath());
     }
 }
