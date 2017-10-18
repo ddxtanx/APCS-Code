@@ -92,11 +92,6 @@ public class Graph {
             }
             unvisited.remove(currentVertex);
         }
-        if(finalCard.getPath().size()<2) {
-            finalCard.getPath().add(0, v1);
-        } else if(finalCard.getPath().get(0).equals(finalCard.getPath().get(1))){
-            finalCard.getPath().remove(0);
-        }
         finalCard.addVertex(v2);
         if(finalCard.getDistance() == 0 || finalCard.getDistance() == Double.POSITIVE_INFINITY){
             finalCard.setDistance(Double.POSITIVE_INFINITY);
@@ -146,13 +141,15 @@ public class Graph {
 
     public void writeToFile(String fileName) throws IOException {
         String graph = "";
-        graph += vertices.size();
+        for(Vertex v: vertices){
+            graph += v.getName()+",";
+        }
+        graph = graph.substring(0, graph.length()-1);
         for(Vertex v: vertices){
             for(Edge e: v.getEdges()){
                 graph += "\n";
                 String vertexString = v.toString();
-                vertexString = vertexString.replaceAll("v", "");
-                graph += vertexString+","+e.getTo().toString().replaceAll("v","")+","+e.getWeight();
+                graph += vertexString+","+e.getTo().toString()+","+e.getWeight();
             }
         }
         Path path = Paths.get(fileName);
@@ -167,16 +164,19 @@ public class Graph {
         Graph g = new Graph(new ArrayList<>());
         try{
             List<String> graphStrings = Files.readAllLines(path);
-            int numVertices = Integer.parseInt(graphStrings.get(0));
+            String[] vertexNames = graphStrings.get(0).split(",");
             ArrayList<Vertex> vertices = new ArrayList<>();
-            for(int x = 0; x<numVertices; x++){
-                vertices.add(new Vertex("v"+x));
+            for(String vertexName: vertexNames){
+                Vertex v = new Vertex(vertexName);
+                vertices.add(v);
             }
             graphStrings.remove(0);
             for(String edge: graphStrings){
                 String[] partitions = edge.split(",");
-                int startIndex = Integer.parseInt(partitions[0]);
-                int toIndex = Integer.parseInt(partitions[1]);
+                String startVertex = partitions[0];
+                int startIndex = vertices.indexOf(new Vertex(startVertex));
+                String toVertex = partitions[1];
+                int toIndex = vertices.indexOf(new Vertex(toVertex));
                 double weight = Double.parseDouble(partitions[2]);
                 vertices.get(startIndex).addEdge(vertices.get(toIndex), weight);
             }
@@ -280,5 +280,9 @@ public class Graph {
         }
         path.add(startingVertex);
         return new DijkstraCard(startingVertex, distance, path);
+    }
+
+    public static Graph randomCompleteGraph(int vertices){
+        return random(vertices, (vertices*(vertices-1))/2);
     }
 }

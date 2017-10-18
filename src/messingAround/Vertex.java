@@ -61,6 +61,9 @@ public class Vertex {
                 Edge ed = (Edge) e;
                 Vertex to = ed.getTo();
                 return equals(to);
+            } else if(e instanceof String){
+                Vertex to = new Vertex((String) e);
+                return equals(to);
             }
             return false;
         }
