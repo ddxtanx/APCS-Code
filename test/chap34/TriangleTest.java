@@ -62,4 +62,14 @@ class TriangleTest {
         assertEquals(4.0/3, centroid.getX(), "X Coordinate of centroid is wrong");
         assertEquals(1, centroid.getY(), "Y Coordinate of centroid is wrong");
     }
+
+    @Test
+    void printTri(){
+        Triangle tri = new Triangle(4,4,10,-2,5,7);
+        tri.printTri();
+        Triangle tri2 = new Triangle(-3,-10,4,8,10,3);
+        tri2.printTri();
+        Triangle tri3 = new Triangle(0,0, 5,5, 10, -5);
+        tri3.printTri();
+    }
 }

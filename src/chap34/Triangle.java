@@ -83,4 +83,33 @@ public class Triangle {
         double yAvg = (coordinates.get(0).getY()+coordinates.get(1).getY()+coordinates.get(2).getY())/3;
         return new Point(xAvg, yAvg);
     }
+
+    public void printTri(){
+        System.out.println("The coordinates of this triangle are: ");
+        for(Point p: coordinates){
+            System.out.println("\t (" + p.getX() + ", " + p.getY() + ")");
+        }
+
+        System.out.println("The side lengths are:");
+        System.out.println("\t Side 1: " + getSide1Length());
+        System.out.println("\t Side 2: " + getSide2Length());
+        System.out.println("\t Side 3: " + getSide3Length());
+
+        System.out.println("The angles are:");
+        System.out.println("\t Angle 1: " + getAngle1());
+        System.out.println("\t Angle 2: " + getAngle2());
+        System.out.println("\t Angle 3: " + getAngle3());
+
+        System.out.println("The area is: ");
+        System.out.println("\t " + getArea());
+
+        System.out.println("The perimeter is: ");
+        System.out.println("\t " + getPerimeter());
+
+        System.out.println("The circumcenter is:");
+        System.out.println("\t (" + getCircumcenter().getX() + "," + getCircumcenter().getY() + ")");
+
+        System.out.println("The centroid is:");
+        System.out.println("\t (" + getCentroid().getX() + "," + getCentroid().getY() + ")");
+    }
 }
