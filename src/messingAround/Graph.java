@@ -93,6 +93,13 @@ public class Graph {
             unvisited.remove(currentVertex);
         }
         finalCard.addVertex(v2);
+        try {
+            if (finalCard.getPath().get(0).equals(finalCard.getPath().get(1))) {
+                finalCard.getPath().remove(0);
+            }
+        } catch(IndexOutOfBoundsException n){
+            n.printStackTrace();
+        }
         if(finalCard.getDistance() == 0 || finalCard.getDistance() == Double.POSITIVE_INFINITY){
             finalCard.setDistance(Double.POSITIVE_INFINITY);
             finalCard.removePath();

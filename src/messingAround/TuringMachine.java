@@ -1,6 +1,13 @@
 package messingAround;
 
 public class TuringMachine {
+    public static void main(String[] args) {
+        String initialTape = "00100";
+        String[] rules = {"1 R 0 1 L 2", "1 L 1 0 R 0", "1 L 1 1 R 3"};
+        int initialHeadIndex = 0;
+        TuringMachine t = new TuringMachine(initialTape, rules, initialHeadIndex);
+        t.run();
+    }
     String tape;
     //Infinite tape is 'pre-filled' with 0's
     String[] rules;
@@ -22,7 +29,23 @@ public class TuringMachine {
     }
 
     public void run(){
-        String num = tape.substring(headIndex, headIndex + 1);
+        String num;
+
+        if(headIndex>=0 && headIndex<tape.length()){
+            num = tape.substring(headIndex, headIndex+1);
+        } else{
+            num = "0";
+            if(headIndex<0){
+                tape = "0" + tape;
+                headIndex++;
+            } else{
+                tape = tape + "0";
+            }
+        }
+        System.out.println("Start:----");
+        System.out.println(tape);
+        System.out.println("Header at " + headIndex + ", value read " + num + ", current state " + currentState);
+        System.out.println("-----:End");
         String[] ruleSplit = rules[currentState].split(" "); //Splits 1 1 1 0 0 0 into array
         if(num.equals("0")){
             StringBuilder newTape = new StringBuilder(tape);
@@ -41,9 +64,14 @@ public class TuringMachine {
 
             currentState = Integer.parseInt(ruleSplit[5]);
         }
-        System.out.println(tape);
+
         if(currentState<rules.length){
             run();
+        } else{
+            System.out.println("FINISHED-----");
+            System.out.println(tape);
+            System.out.println("Header at " + headIndex + ", value read " + num + " current state " + currentState);
+            System.out.println("-----:End");
         }
     }
 }

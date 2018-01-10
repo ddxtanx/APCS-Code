@@ -7,7 +7,7 @@ public class GraphExample {
 
     public static void main(String[] args) {
         int vertices = 11;
-        Graph g = Graph.randomCompleteGraph(vertices);
+        Graph g = Graph.random(vertices, 2*vertices);
         g.links();
         ArrayList<Vertex> verticesList = g.getVertices();
         Vertex v1 = verticesList.get(0);
