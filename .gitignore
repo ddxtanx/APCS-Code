@@ -1,7 +1,3 @@
-src/messingAround/*.class
-graph.txt
-.DS_Store
-.idea/compiler.xml
-out/production/Chapter1&2 Examples/messingAround/
-src/.DS_Store
-test/.DS_Store
+.idea
+Chapter1&2 Examples.iml
+out

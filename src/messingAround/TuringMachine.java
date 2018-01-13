@@ -2,8 +2,8 @@ package messingAround;
 
 public class TuringMachine {
     public static void main(String[] args) {
-        String initialTape = "00100";
-        String[] rules = {"1 R 0 1 L 2", "1 L 1 0 R 0", "1 L 1 1 R 3"};
+        String initialTape = "1";
+        String[] rules = {"1 R 2 1 L 0", "1 L 1 0 R 0", "1 L 4 1 R 3", "0 L 0 1 R 1"};
         int initialHeadIndex = 0;
         TuringMachine t = new TuringMachine(initialTape, rules, initialHeadIndex);
         t.run();
