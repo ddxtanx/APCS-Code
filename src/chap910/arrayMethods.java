@@ -44,10 +44,9 @@ public class arrayMethods {
         try{
             List<String> lines = Files.readAllLines(p);
             int[][] arr = new int[lines.size()][];
-            int count = 0;
             for(int x = 0; x<lines.size(); x++){
                 String line = lines.get(x);
-                String[] split = line.split(" ");
+                String[] split = line.trim().split(" ");
                 int[] intArr = new int[split.length];
                 for(int y = 0; y<split.length; y++){
                     intArr[y] = Integer.parseInt(split[y]);
