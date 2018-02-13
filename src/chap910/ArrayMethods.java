@@ -3,26 +3,20 @@ package chap910;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Random;
 
-public class arrayMethods {
+public class ArrayMethods {
     private int[][] array;
     private int errorCount = 0;
     public static void main(String[] args) {
-        arrayMethods rand = new arrayMethods(3,5,10);
+        ArrayMethods rand = new ArrayMethods(3,5,10);
         rand.stuff();
         System.out.println("------");
-        Path p = Paths.get("./exampleArray.txt");
-        try {
-            arrayMethods arr = new arrayMethods(p);
-            arr.stuff();
-        }catch(IOException i){
-            i.printStackTrace();
-        }
+        ArrayMethods x = new ArrayMethods(5,5,20);
+        x.stuff();
     }
-    public arrayMethods(int x, int y, int maxNum){
+    public ArrayMethods(int x, int y, int maxNum){
         Random rand = new Random();
 
         int[][] randArr = new int[x][y];
@@ -36,11 +30,11 @@ public class arrayMethods {
         array = randArr;
     }
 
-    public arrayMethods(int[][] arr){
+    public ArrayMethods(int[][] arr){
         this.array = arr;
     }
 
-    public arrayMethods(Path p) throws IOException{
+    public ArrayMethods(Path p) throws IOException{
         try{
             List<String> lines = Files.readAllLines(p);
             int[][] arr = new int[lines.size()][];
