@@ -12,7 +12,7 @@ public class Time {
     public void setTime(int h, int m){
         hours = h;
         minutes = m;
-    }
+    } 
 
     public int getHours() {
         return hours;
